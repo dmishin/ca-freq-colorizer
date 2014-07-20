@@ -10,12 +10,12 @@ inline int wrap( int x, int h ){
   return x;
 }
 
-template< FloatT >
-inline uint8 clamp_255( FLoatT x )
+template< class FloatT >
+unsigned char clamp_255( FloatT x )
 {
   if (x <=0 ) return 0;
   if (x >=255) return 255;
-  return (uint8)x;
+  return (unsigned char)x;
 }
 
 template< class T >

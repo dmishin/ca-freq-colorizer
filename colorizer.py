@@ -16,7 +16,7 @@ def load_module(name):
     path = os.path.join(os.path.dirname(__file__), name+ext)
     return ctypes.CDLL( path )
 
-_colorizer =  load_module( "_colorizer" )
+_colorizer =  load_module( "_colorize" )
 
 
 #must correspond to the typedef i nthe colorizer.hpp

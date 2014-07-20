@@ -1,12 +1,12 @@
-all: _revca.so _colorizer.so
+all: _revca.so _colorize.so
 
-_revca.so: revca.cpp revca.hpp utils.hpp colorizer.hpp
-	g++ -O3 -Wall -shared revca.cpp -o _revca.so
+_revca.so: revca.cpp revca.hpp utils.hpp colorize.hpp
+	g++ -march=native -ffast-math -O3 -Wall -shared revca.cpp -o _revca.so
 
-_colorizer.so: colorizer.cpp colorizer.hpp utils.hpp
-	g++ -O3 -Wall -shared colorizer.cpp  -o _colorizer.so
+_colorize.so: colorize.cpp colorize.hpp utils.hpp
+	g++ -march=native -ffast-math -O3 -Wall -shared colorize.cpp  -o _colorize.so
 
 clean: 
-	rm _revca.so _colorizer.so
+	rm _revca.so _colorize.so
 
 .PHONY: all clean

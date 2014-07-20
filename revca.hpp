@@ -7,7 +7,8 @@
 #define REVCA_EXPORT 
 #endif
 
-#include "colorizer.hpp"
+//for typedefs
+#include "colorize.hpp"
 
 struct BinaryBlockFunction{
   uint8 output[16];

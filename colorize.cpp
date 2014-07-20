@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <iostream>
 #include "utils.hpp"
-
+#include "colorize.hpp"
 const int colorizer_states = 4;
 
 int colorizer_put(clr_float_t* colorizer_state, uint8 *cells, int size, clr_float_t decay)
@@ -68,7 +68,7 @@ int colorizer_image(clr_float_t* colorizer_state, uint8 *rgb, int size, clr_floa
 int colorizer_underflow_protect( clr_float_t* colorizer_state, int size, clr_float_t eps)
 {
   clr_float_t* end = colorizer_state + (size*colorizer_states);
-  FOR_RANGE( clr_float_t*, pix, colorizer_state, end){
+  for( clr_float_t *pix=colorizer_state; pix !=end; ++pix){
     if (fabs(*pix) < eps)
       *pix = 0;
   }
