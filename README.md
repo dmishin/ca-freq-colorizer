@@ -7,6 +7,8 @@ Plus, some useless scripts.
 
 Implementation: Python2 + ctypes, C++
 
+![alt text](samples/sample.png "Sample frame")
+
 Scripts
 -------
 
