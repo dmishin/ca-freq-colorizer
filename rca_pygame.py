@@ -1,7 +1,8 @@
 import pygame
 from pygame.locals import *
 import numpy 
-from critters import *
+from revca import *
+
 from random import randint, shuffle
 import Tkinter
 import tkFileDialog, tkSimpleDialog

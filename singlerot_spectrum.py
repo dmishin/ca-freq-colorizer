@@ -18,8 +18,7 @@ def absnorm( fld ):
     return afld / afld.max()
 
 if __name__=="__main__":
-
-    
+    print "Calculating averaged spectrum of the oscillations of the reveersible cellular automaton"
 
     N = 128
     R = (40,40)
@@ -29,6 +28,10 @@ if __name__=="__main__":
 
     if N%2 != 0: raise ValueError("N must be even")
 
+    print "Field size:", N
+    print "FFT chunk size:", time_chunk
+    print "Number of FFT chunks:", time_chunks
+
     #Prepare initial data
     initial_field = numpy.zeros( (N,N), dtype = numpy.uint8 )
     c = N / 2
@@ -36,7 +39,7 @@ if __name__=="__main__":
     noise_box( initial_field, c-rx, c-ry, c+rx, c+ry, percentage )
     rule = BinaryBlockFunc( [0,2,8,3,1,5,6,7,4,9,10,11,12,13,14,15] )#single rotation
 
-    
+    print "Rule is:", rule
 
     #evaluate, accumulating spectra
     accum_spectrum = numpy.zeros( (time_chunk/2+1,) )
@@ -45,15 +48,17 @@ if __name__=="__main__":
     start_position = 0
     total_pixels = N*N
 
+    print "================= Started ===================="
+
     pixels_at_once = 256
     while start_position<total_pixels:
         end_position = min(start_position+pixels_at_once, total_pixels)
-        print "Calculating stripe", start_position, "to", end_position
+        print "Calculating stripe", start_position, "to", end_position, "(%.3g%% of total)"%(float(start_position)/total_pixels*100)
         stripe_size = end_position - start_position
         #total memory used: (pixels_at_once * time_chunk) bytes
         fld = initial_field.copy()
         for time_chunk_index in xrange(time_chunks):
-            print "Evaluate time chunk", time_chunk_index
+            print "  Time chunk:", time_chunk_index+1, "of", time_chunks
             #start evaluating field and accumulating time series for its cells
             time_series = numpy.zeros((stripe_size, time_chunk), dtype=numpy.uint8)
             for t in xrange(time_chunk):
@@ -65,6 +70,15 @@ if __name__=="__main__":
             accum_spectrum += spectrums
         start_position += pixels_at_once
 
+    print "================= Finished ==================="
 
     print "Accumulated totally", total_spectra, "spectra."
-    numpy.savez("singlerot-spectrum.npz", spectrum=accum_spectrum, total_spectra=total_spectra, time_chunk=time_chunk, time_chunks=time_chunks,N=N,R=R,percentage=percentage)
+    numpy.savez("singlerot-spectrum.npz", 
+                spectrum=accum_spectrum, 
+                total_spectra=total_spectra, 
+                time_chunk=time_chunk, 
+                time_chunks=time_chunks,
+                N=N,
+                R=R,
+                percentage=percentage)
+    print "Saved file", out_file, "now run singlerot_spectrum_plot to show it"

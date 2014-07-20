@@ -5,8 +5,6 @@ from optparse import OptionParser
 
 def main():
     parser = OptionParser(usage = "%prog [options] file.npz show spectrum\n")
-
-
     (options, args) = parser.parse_args()
     
     if len(args) < 1:
