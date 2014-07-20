@@ -1,0 +1,12 @@
+* <2012-11-23 Ïò>
+  Features:
+  - Detect rule type.
+
+  TODOs:
+  - Non-flip-symmetric rules
+    SUche rules allow 90-deg rotations additionally to 180-deg rotations.
+    Rotations are actula for equivalence groups:
+    11   10   01
+    00 , 00 , 11
+    For other groups, rotation is either non-important or equivalent to inverse.
+    
